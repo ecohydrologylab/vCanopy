@@ -1,0 +1,19 @@
+%% Temperature responce of photosynthesis parameters
+LeafState.ei = (0.611.*exp(17.502.*LeafState.tLeaf./(240.97+LeafState.tLeaf)))*1000;
+LeafState.Ko = 450.0 * 1.2.^((LeafState.tLeaf - 25.0) / 10.0); %(Chen 1994) / Ko{@25} = 450.0; /(vonCaemmerer 2000) Michaelis constant of Rubisco for O2 [m bar]
+LeafState.Kc = 650.0 * 2.1.^((LeafState.tLeaf - 25.0) / 10.0); %(Chen 1994) / Kc{@25} = 650.0; /(vonCaemmerer 2000) Michaelis constant of Rubisco for CO2 [u bar]
+LeafState.Kp = 80.0 * 2.1.^((LeafState.tLeaf - 25.0) / 10.0); %(Chen 1994) / Kp{@25} = 80.0; /(vonCaemmerer 2000) Michaelis constant of PEP carboxylase for CO2 [u bar]
+leafTemperatureKelvin = LeafState.tLeaf + 273.15; % [Kelvin]
+LeafMassFlux.jmax = Photosynthesis.jmax25 .* exp(77900.0 * (leafTemperatureKelvin - 298.15) ./ (298.15 * Constants.R * 1000.0* leafTemperatureKelvin))...
+    .*(1.0 + exp((298.15 * 627.0 - 191929.0) ./ (298.15 * Constants.R * 1000.0)))...
+    ./(1.0 + exp((leafTemperatureKelvin * 627.0 - 191929.0) ./ (leafTemperatureKelvin * Constants.R * 1000.0))); % Max electon transport rate (Massad 2007) [u moles m-2 s-1]
+LeafMassFlux.vcmax = Photosynthesis.vcmax25 .* exp(67294.0 * (leafTemperatureKelvin - 298.15) ./ (298.15 * Constants.R * 1000.0 * leafTemperatureKelvin))...
+    .*(1.0 + exp((298.15 * 472.0 - 144568.0) ./ (298.15 * Constants.R * 1000.0)))...
+    ./(1.0 + exp((leafTemperatureKelvin * 472.0 - 144568.0) ./ (leafTemperatureKelvin * Constants.R * 1000.0))); % Max RuBP saturated carboxylation at given temperature (Massad 2007) [u moles m-2 s-1]
+LeafMassFlux.vpmax = Photosynthesis.vpmax25 .* exp(70373.0 * (leafTemperatureKelvin - 298.15) ./ (298.15 * Constants.R * 1000.0 * leafTemperatureKelvin))...
+    .*(1.0 + exp((298.15 * 376.0 - 117910.0) ./ (298.15 * Constants.R * 1000.0)))...
+    ./(1.0 + exp((leafTemperatureKelvin * 376.0 - 117910.0) ./ (leafTemperatureKelvin * Constants.R * 1000.0))); % Max PEP carboxylation rate at a given leaf temperature (Massad 2007) [u moles m-2 s-1]
+Sco = Photosynthesis.sco25*1E-3 .* exp(-55900.0 * (leafTemperatureKelvin - 298.15) ./ (298.15 * Constants.R * 1000.0 * leafTemperatureKelvin));
+LeafState.gammaStar = 1/2./Sco; % Half of reciprocal of Rubisco specificity (von Cammerer 2000) considered constant [-]
+LeafMassFlux.rd = Photosynthesis.rd25.*LeafMassFlux.vcmax;
+LeafMassFlux.rm = 0.5*LeafMassFlux.rd; LeafMassFlux.rbs = 0.5*LeafMassFlux.rd;

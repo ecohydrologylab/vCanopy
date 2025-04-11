@@ -1,0 +1,10 @@
+Initialize = table();
+Initialize.gs = 0.08 + zeros(length(Photosynthesis),1);
+Initialize.ci = 0.5*[Weather(:).ca]';
+Initialize.cb = 0.6*[Weather(:).ca]';
+Initialize.cbs = 5*[Weather(:).ca]';
+Initialize.aNet = 0.1*[Weather(:).ca]';
+Initialize.GammaStar = 0.0143 + 0*[Weather(:).ca]';
+Initialize.tLeaf = [Weather(:).tAir]';
+Initialize.eb = 1.1*[Weather(:).ea]';
+Initialize = table2struct(Initialize);
