@@ -2,15 +2,12 @@ function [Constants,EnergyOptions,LeafBoundaryLayer,Weather,Soil,Canopy,Photosyn
 
 addpath('./CanopyModel')
 
-% This code checks the model setup
-callModelSetupChecks
-
 [Weather] = callWeatherInput(Options,WeatherData);
 [Soil,Canopy] = callSoilCanopyAirInput(Weather,Options); % Only model inputs no outputs
 [Constants,EnergyOptions,LeafBoundaryLayer] = callConstantsInput(Options);
 [Photosynthesis,Stomata] = callPhotosynthesisStomataInput(Options,Canopy);
 
-% Correction to wind
+%% Correction to wind
 Weather.wind(Weather.wind<0.1) = 0.1;
 d0 = 2/3*Canopy.hN;
 z0 = 0.13*Canopy.hN;
@@ -35,10 +32,10 @@ for i = 1:1:length(ind)
     Weather.wind(ind(i)) = U_mean(hIndex);
 end
 
-% Applying photosynthesis decay
+%% Applying photosynthesis decay
 callPhotosynthesisDecay
 
-% Assign specific leaf area
+%% Assign specific leaf area
 callBiomassCalculation
 
 Weather = table2struct(Weather);

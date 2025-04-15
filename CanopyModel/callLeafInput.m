@@ -34,17 +34,4 @@ LeafWeather.deltaT(:) = Weather.deltaT;
 CanopyLayer = table2struct(CanopyLayer);
 LeafWeather = table2struct(LeafWeather);
 
-% Inpur for big leaf model: Put all radiation into sunlit leaves
-% if length(Canopy.z) == 2
-%     shadeLeafWeather.PAR = [(Canopy.PARDirectAbsorbed+Canopy.PARDiffuseAbsorbed+...
-%         Canopy.PARScatteredAbsorbed),0,0]'/Canopy.LAI(1);
-%     shadeLeafWeather.NIR = [(Canopy.NIRDirectAbsorbed+Canopy.NIRDiffuseAbsorbed+...
-%         Canopy.NIRScatteredAbsorbed),0,0]'/Canopy.LAI(1);
-%     shadeLeafWeather.long = [Canopy.longAbsorbed,0,0]'/Canopy.LAI(1);
-%     LeafWeather.PAR = shadeLeafWeather.PAR*0;
-%     LeafWeather.NIR = shadeLeafWeather.NIR*0;
-%     LeafWeather.long = shadeLeafWeather.long*0;    
-%     LeafWeather.fraction = LeafWeather.PAR*0;
-%     shadeLeafWeather.fraction = shadeLeafWeather.PAR*0+1;
-% end
 end

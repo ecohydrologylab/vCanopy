@@ -17,12 +17,10 @@ for index = 1:length(Reduction)
     %% Getting the Input
     canopyLayers = 20;
     Options.canopyPoints = canopyLayers+1; % Including the soil layer
-    Options.model = 4; % 1- BLeaf; 2- SS_SL; 3- SS_ML_noMC; 4- SS_ML_MC
     Options.plant = 4; % For C4 crops
     
     %% Light attenuation controls
     Options.isotropy = "UOC"; % Uniform overcast sky
-    Options.kDVariation = "Constant"; % "Variable"; %  decay constant for diffused radiation= constant
     Options.diffuseFactor = 0; % No external influence on the diffusive fraction
     
     %% Switches
@@ -35,23 +33,23 @@ for index = 1:length(Reduction)
     
     %% Changes based on crop species
     Options.GDDpre = 660; % Heat requirements during emergence to flowering
-    Options.GDDpost = 850; % Heat requirements during flowering to maturity
-    Options.X = 1.37;% maize %% Leaf angle distribution
-    Options.Jmax_Vcmax = 5; %5.45; % Jmax/Vcmax ratio for season average
+    Options.GDDpost = 850; % Heat requirements during flowering to maturity (Absolute = 1510)
+    Options.X = 1.37; % Leaf angle distribution
+    Options.Jmax_Vcmax = 5; % Jmax/Vcmax 
     Options.kn = 0.5; % Exponential nitrogen decay
     Options.PcSeasonalVariation = 1; % Decay in photosynthetic parameters
-    Options.linearDTD = 0.471; % 0.5; %0.471; % daily decline in Vcmax after 600 GDD
+    Options.linearDTD = 0.471; % daily decline in Vcmax after 600 GDD
     Options.omega = 1; % Clumping factor for maize
     Options.aPAR = 0.80; % absorbtivity of PAR
     Options.aNIR = 0.23; % absorbtivity of NIR
     Options.epsilonLeaf = 0.94; % emissivity of leaf for LW
     
     %% Global Change simulations
-    Options.LAIRatio = 1;
-    Options.vcmaxRatio = 1;
-    Options.deltaTair = 0;
-    Options.deltaRH = 0;
-    Options.deltaCO2 = 0;
+    Options.LAIRatio = 1; % Fraction to model LAI increase under elevated [CO2]
+    Options.vcmaxRatio = 1; % Factor to model photosynthesis capacity depreciation under elevated [CO2]
+    Options.deltaTair = 0; % 2.7; % Increase in Tair for future climate
+    Options.deltaRH = 0; % -3.5; % Percentage decrease in RH for future climate
+    Options.deltaCO2 = 0; % 130; % Increase in [CO2] for future climate
     
     %% Input and initialization of canopy variables
     [Constants,EnergyOptions,LeafBoundaryLayer,Weather,Soil,Canopy,...
@@ -73,7 +71,7 @@ for index = 1:length(Reduction)
     
     %% Setup output and log file name
     fileLocation = './Output/';
-    fileName = strcat("NR_val_vCanopy1D_","C",...
+    fileName = strcat("val_vCanopy1D_","C",...
         num2str(Photosynthesis.plant(1)),"_soilRH_",num2str(Soil(1).RH),...
         "%_Ca_",num2str(Weather(1).ca),"_Vc_",num2str(Photosynthesis.vcmax25(end))...
         ,"_JxE1_",num2str(Photosynthesis.jmax25(end)*10));

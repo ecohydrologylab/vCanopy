@@ -20,9 +20,9 @@ elseif strcmp(Options.wavelength,'NIR')
     soilAbsorptivity = EnergyOptions.aNIRSoil;
     soilReflectivity = 1-EnergyOptions.aNIRSoil;
     soilTransmissivity = 0;
-elseif strcmp(Options.wavelength,'long') % XXX check
+elseif strcmp(Options.wavelength,'long') % 
     leafAbsorptivity = EnergyOptions.epsilonLeaf; % Leaf absorptivity Changed from 0.96
-    leafReflectivity = 0;%(1-leafAbsorptivity^0.5)/(1+leafAbsorptivity^0.5); % Leaf reflectivity Changed to 0 from Drewry
+    leafReflectivity = 0; %(1-leafAbsorptivity^0.5)/(1+leafAbsorptivity^0.5); % Leaf reflectivity Changed to 0 from Drewry
     leafTransmissivity = 1.0-leafAbsorptivity-leafReflectivity; % Leaf transmissivity
     soilAbsorptivity = EnergyOptions.epsilonSoil; % Changed from 0.8
     soilReflectivity = 1-EnergyOptions.epsilonSoil; % Changed from 0.2
@@ -42,12 +42,7 @@ for layerLoop = 1:1:layers
         k = sqrt(Canopy.x^2 + tand(Canopy.zenith).^2)/ ...
             (Canopy.x+1.774*(Canopy.x+1.182).^(-0.733));
     elseif strcmp(Options.orientation,'diffuse') % Canopy.zenith = Weather.zenith
-        if(strcmp(Options.kDVariation,'Constant'))
-            k = Canopy.kD;
-        elseif (strcmp(Options.kDVariation,'Variable'))
-            [k,tau] = callKDiffuse(Canopy.zenith,Canopy.x,Canopy.omega, ...
-                [Canopy.deltaLAI(2:end-layerLoop+1) 0],Options); % variable kD 
-        end
+        k = Canopy.kD;
     end
     
     extinction = exp(-k.*Canopy.omega.* ...

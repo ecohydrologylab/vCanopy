@@ -12,20 +12,19 @@ Constants.airdensity = 1.2923*1000/28.97; % [mol/m3]
 
 LeafBoundaryLayer.cForced = 4.322*1E-3; % 1.2035*1E-3 for coniferous shoot
 LeafBoundaryLayer.cFree = 1.6361*1E-3; % 0.86691*E-3 for coniferous shoot
-LeafBoundaryLayer.leafDimension = 0.08; % [m] Nikolov 1995
+LeafBoundaryLayer.leafDimension = 0.08; % Leaf dimension [m] 
 
 EnergyOptions.isotropy = Options.isotropy; % Uniform overcast sky
-EnergyOptions.kDVariation = Options.kDVariation; % decay constant for diffused radiation= constant
-EnergyOptions.switch = Options.LEBSwitch; % Energy balance switch in each layer
+EnergyOptions.switch = Options.LEBSwitch; % Energy balance switch in each layer On: 1; Off: 0
 EnergyOptions.mixingSwitch = Options.mixingSwitch; % MicroEnvironment On: 1; Off: 0
 EnergyOptions.fixedMicro = Options.fixedMicro; % This will fix the microenvironment/longwave but allow the leaf energu balance to work
-EnergyOptions.longwaveSwitch = Options.longwaveSwitch;
-EnergyOptions.aNIRLeaf = Options.aNIR; % Drewry 2010
-EnergyOptions.aPARLeaf = Options.aPAR; % Drewry 2010
+EnergyOptions.longwaveSwitch = Options.longwaveSwitch; 
+EnergyOptions.aNIRLeaf = Options.aNIR; % PAR absorptivity of leaf [-]
+EnergyOptions.aPARLeaf = Options.aPAR; % NIR absorptivity of leaf [-]
 EnergyOptions.epsilonLeaf = Options.epsilonLeaf; % Emissivity leaf [-]
-EnergyOptions.aPARSoil = 0.8;
-EnergyOptions.aNIRSoil = 0.8;
-EnergyOptions.epsilonSoil = 0.9; % Emissivity soil[-]
+EnergyOptions.aPARSoil = 0.8; % PAR absorptivity of soil [-]
+EnergyOptions.aNIRSoil = 0.8; % NIR absorptivity of soil [-]
+EnergyOptions.epsilonSoil = 0.9; % Emissivity soil [-]
 EnergyOptions.LEfactor = 1.0; % Stomata on one side of leaf [-]
 EnergyOptions.LWfactor = 2.0; % Emission from two sides of leaf [-]
 EnergyOptions.Hfactor = 1.0; % Sensible heat loss from two sides of leaf [-]

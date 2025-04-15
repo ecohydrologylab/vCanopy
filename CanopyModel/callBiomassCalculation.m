@@ -1,4 +1,3 @@
-
 %% Calculation of the developmental stage
 DVS = ones(height(Weather),1);
 index = Weather.GDD/Options.GDDpre < 1;

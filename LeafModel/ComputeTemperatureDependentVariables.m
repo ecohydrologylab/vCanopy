@@ -1,8 +1,8 @@
 %% Temperature responce of photosynthesis parameters
 LeafState.ei = (0.611.*exp(17.502.*LeafState.tLeaf./(240.97+LeafState.tLeaf)))*1000;
-LeafState.Ko = 450.0 * 1.2.^((LeafState.tLeaf - 25.0) / 10.0); %(Chen 1994) / Ko{@25} = 450.0; /(vonCaemmerer 2000) Michaelis constant of Rubisco for O2 [m bar]
-LeafState.Kc = 650.0 * 2.1.^((LeafState.tLeaf - 25.0) / 10.0); %(Chen 1994) / Kc{@25} = 650.0; /(vonCaemmerer 2000) Michaelis constant of Rubisco for CO2 [u bar]
-LeafState.Kp = 80.0 * 2.1.^((LeafState.tLeaf - 25.0) / 10.0); %(Chen 1994) / Kp{@25} = 80.0; /(vonCaemmerer 2000) Michaelis constant of PEP carboxylase for CO2 [u bar]
+LeafState.Ko = 450.0 * 1.2.^((LeafState.tLeaf - 25.0) / 10.0); %(Chen 1994) Michaelis constant of Rubisco for O2 [m bar]
+LeafState.Kc = 650.0 * 2.1.^((LeafState.tLeaf - 25.0) / 10.0); %(Chen 1994) Michaelis constant of Rubisco for CO2 [u bar]
+LeafState.Kp = 80.0 * 2.1.^((LeafState.tLeaf - 25.0) / 10.0); %(Chen 1994) Michaelis constant of PEP carboxylase for CO2 [u bar]
 leafTemperatureKelvin = LeafState.tLeaf + 273.15; % [Kelvin]
 LeafMassFlux.jmax = Photosynthesis.jmax25 .* exp(77900.0 * (leafTemperatureKelvin - 298.15) ./ (298.15 * Constants.R * 1000.0* leafTemperatureKelvin))...
     .*(1.0 + exp((298.15 * 627.0 - 191929.0) ./ (298.15 * Constants.R * 1000.0)))...

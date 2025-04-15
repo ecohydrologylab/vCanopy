@@ -10,14 +10,10 @@ for yLoop = 1:1:length(Photosynthesis.years)
     end
     
     Photosynthesis.vcmax25 = orgPhotosynthesis.vcmax25+deltaPC;
-    if Photosynthesis.plant == 4
-        Photosynthesis.jmax25 = Photosynthesis.vcmax25*orgPhotosynthesis.Jmax_Vcmax; % From Miner et. al. 2018
-    else
-        Photosynthesis.jmax25 = orgPhotosynthesis.jmax25;
-    end
+    Photosynthesis.jmax25 = Photosynthesis.vcmax25*orgPhotosynthesis.Jmax_Vcmax; % From Miner et. al. 2018
 end
 
-%% Nitrogen Decay======================
+%% Nitrogen Decay ======================
 CLAI = Canopy.LAI;
 if length(CLAI) == 2
     CLAI(end) = 0;
@@ -25,7 +21,7 @@ end
 CLAI = [CLAI,CLAI];
 
 if Photosynthesis.nitrogenDecay == 1
-    kn = Photosynthesis.kn;% exp(0.00963*max(Photosynthesis.vcmax25)-2.43); %
+    kn = Photosynthesis.kn;%
     Photosynthesis.vpr = Photosynthesis.vpr.*exp(-kn*CLAI)';
     Photosynthesis.vcmax25 = Photosynthesis.vcmax25.*exp(-kn*CLAI)';
     Photosynthesis.jmax25 = Photosynthesis.jmax25.*exp(-kn*CLAI)';

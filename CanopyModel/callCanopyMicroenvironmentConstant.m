@@ -31,15 +31,6 @@ Canopy.FLE = -Km(end-1)*(Canopy.eaProfile(end)-Canopy.eaProfile(end-1))/dz(end)/
 Canopy.FCO2 = Km(end-1)*(Canopy.caProfile(end)-Canopy.caProfile(end-1))/dz(end)/...
     molarVolume(Canopy.tAirProfile(end-1),totalPressure(end-1));
 
-%% Biomass Heat Calculation
-% BiomassPerLayer = EnergyOptions.biomass;% for Soybean % Biomass per layer per ground area [kg m-2 ground area]
-% biomassHeatConstant = BiomassPerLayer.*4.18E3/(Weather.deltaT*3600)*...
-%     ones(1,length(Canopy.airtempLag1));
-% Canopy.airtempLag1(isnan(Canopy.airtempLag1)) = 0;
-% biomassHeatConstant(isnan(Canopy.airtempLag1) | Canopy.airtempLag1 == 0) = 0;
-% Canopy.biomassHeat = biomassHeatConstant.*(Canopy.tAirProfile - Canopy.airtempLag1);
-% Canopy.biomassHeat([1,end]) = NaN;
-
 if EnergyOptions.switch == 1
     Canopy.sunTleaf(1:length(Canopy.z)) =  Error.relax*...
         Canopy.sunTleaf+ (1-Error.relax)*CanopyIteration.sunTleaf;

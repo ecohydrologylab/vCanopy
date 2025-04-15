@@ -4,11 +4,11 @@ hour = unique(Weather.hour);
 decayStartDOY = 185;
 Photosynthesis.decayStart = [];
 
-if Photosynthesis.PcSeasonalVariation == 1 
-
-    Photosynthesis.linearDTD = Options.linearDTD; % Daily reduction in plant Vcmax
+if Photosynthesis.PcSeasonalVariation == 1
     
-    if isnan(Weather.GDD(1))
+    Photosynthesis.linearDTD = Options.linearDTD; % Daily reduction in canopy top Vcmax
+    
+    if isnan(Weather.GDD(1)) % Applying photosyntheis decay when GDD is not available
         disp("Applying photosynthesis decay from predecided DOY")
         Photosynthesis.decayStart = decayStartDOY*ones(1,length(Photosynthesis.years));
         for yLoop = 1:1:length(Photosynthesis.years)
@@ -20,7 +20,7 @@ if Photosynthesis.PcSeasonalVariation == 1
             cumgdd = [-fliplr(cumsum(fliplr(gdd(1:offset+1)))),cumsum(gdd(offset+2:end))];
             Weather.GDD(yearIndex) = reshape(repmat(Options.GDDpre + cumgdd,[length(hour),1]),[],1);
         end
-    else
+    else % Applying photosynthesis when GDD is avaialable
         for yLoop = 1:1:length(Photosynthesis.years)
             yearindex = find(Weather.year == Photosynthesis.years(yLoop));
             doy = Weather.julian(yearindex);
@@ -38,8 +38,6 @@ if Photosynthesis.PcSeasonalVariation == 1
     end
     
 else
-    
     Photosynthesis.linearDTD = 0;%
     Photosynthesis.decayStart = zeros(1,length(Photosynthesis.years));%
-    
 end

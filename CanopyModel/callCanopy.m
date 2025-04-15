@@ -49,7 +49,6 @@ while (Error.loop < Error.maxLoop) && ...
         (Error.tAirProfile > Error.tolerance) || ...
         (Error.soilTemperature > Error.tolerance))
     
-    
     % Compute long radiation attenuation
     if EnergyOptions.longwaveSwitch == 1
         [Soil,Canopy] = callLongRadiationAttenuation(Constants,EnergyOptions,Weather,Soil,Canopy);

@@ -2,7 +2,6 @@ function [Soil,Canopy] = callShortRadiationAttenuation(EnergyOptions,Weather,Soi
 
 %% Compute direct PAR radiation attenuation
 Options.isotropy = EnergyOptions.isotropy;
-Options.kDVariation = EnergyOptions.kDVariation;
 Options.wavelength = 'PAR';
 Options.orientation = 'direct';
 Canopy.down = zeros(1,size(Canopy.z,2));
@@ -86,7 +85,6 @@ Canopy.NIRScatteredAbsorbed = Canopy.scatteredAbsorbed;
 Canopy.NIRScatteredUp = Canopy.scatteredUp;
 
 %% Error
-
 Error.PARAbsolute = Weather.PARDirect+Weather.PARDiffuse- ...
     sum(Canopy.PARDirectAbsorbed+Canopy.PARDiffuseAbsorbed+ ...
     Canopy.PARScatteredAbsorbed)-Canopy.PARScatteredUp(end); % PAR radiation

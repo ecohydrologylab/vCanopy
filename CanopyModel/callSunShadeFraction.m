@@ -8,33 +8,21 @@ if Weather.zenith <= 90
     kBeam = sqrt(Canopy.x^2 + tand(Weather.zenith).^2)/ ...
         (Canopy.x+1.774*(Canopy.x+1.182).^(-0.733)); % Fraction of leaf area projected on the horizontal
     
-% if length(Canopy.deltaLAI) == 2     
-%     % Top layer
-%     LAIIndex = length(Canopy.deltaLAI);
-% %     Canopy.sunFraction(1,LAIIndex) = (1-exp(-kBeam*Canopy.omega* ...
-% %         sum(Canopy.deltaLAI(1,LAIIndex:end))))/ ...
-% %         (kBeam*Canopy.omega*Canopy.deltaLAI(1,LAIIndex)); % Sun fraction
-%     Canopy.sunFraction(1,LAIIndex) = exp(-kBeam*Canopy.omega...
-%         *Canopy.deltaLAI(1,LAIIndex)); % Sun fraction Drewry  
-% else
     % Top layer
     LAIIndex = length(Canopy.deltaLAI);
     Canopy.sunFraction(1,LAIIndex) = (1-exp(-kBeam*Canopy.omega* ...
         sum(Canopy.deltaLAI(1,LAIIndex:end))))/ ...
         (kBeam*Canopy.omega*Canopy.deltaLAI(1,LAIIndex)); % Sun fraction
-%     Canopy.sunFraction(1,LAIIndex) = exp(-kBeam*Canopy.omega* ...
-%         sum(Canopy.deltaLAI(1,LAIIndex:end))); % Sun fraction Drewry       
-% end
-
+    
+    
     % All other layers
     for LAIIndex = length(Canopy.deltaLAI)-1:-1:1
         Canopy.sunFraction(1,LAIIndex) = (...
             exp(-kBeam*Canopy.omega*sum(Canopy.deltaLAI(1,LAIIndex+1:end)))- ...
             exp(-kBeam*Canopy.omega*sum(Canopy.deltaLAI(1,LAIIndex:end))))/ ...
             (kBeam*Canopy.omega*Canopy.deltaLAI(1,LAIIndex)); % Sun fraction
-%         Canopy.sunFraction(1,LAIIndex) = exp(-kBeam*Canopy.omega* ...
-%             sum(Canopy.deltaLAI(1,LAIIndex:end))); % Sun fraction Drewry
-    end 
+        
+    end
 end
 
 Canopy.sunFraction(Canopy.sunFraction<0.01) = 0.0;

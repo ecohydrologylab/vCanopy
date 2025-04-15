@@ -27,12 +27,6 @@ while (errorLoop < maxLoop) && (sumSquareError > minError)
     Km = [Km(1),Km];    
     dKm_dz = diff(Km)./dz;
     dKm_dz = [dKm_dz(1),dKm_dz];    
-%     U_ip1 = [Canopy.windProfile,NaN,NaN]';
-%     U_in1 = [NaN,NaN,Canopy.windProfile]';
-%     U_i = [NaN,Canopy.windProfile,NaN]';   
-%     dU2_dz2 = (U_ip1 - 2*U_i + U_in1)./[NaN,[dz(1)^2,dz.^2],NaN]';
-%     dKm_dz = Canopy.lm^2*abs(dU2_dz2(2:end-1)');
-%     dKm_dz(1) = dKm_dz(2); 
     
     % Bottom boundary node
     aMatrix(1,1) = 1;
@@ -40,10 +34,6 @@ while (errorLoop < maxLoop) && (sumSquareError > minError)
     
     % Internal nodes
     for zLoop = 2:1:length(windProfileOld)-1
-%           aMatrix(zLoop,zLoop-1) = -Km(zLoop)/dz(zLoop)^2 + dKm_dz(zLoop)/dz(zLoop);
-%           aMatrix(zLoop,zLoop) = 2*Km(zLoop)/dz(zLoop)^2 - dKm_dz(zLoop)/dz(zLoop) ...
-%               + 0.5*Canopy.cd*Canopy.LADProfile(zLoop)*abs(windProfileOld(zLoop));
-%           aMatrix(zLoop,zLoop+1) = -Km(zLoop)/dz(zLoop)^2;
           aMatrix(zLoop,zLoop-1) = -Km(zLoop)/dz(zLoop)^2 ;
           aMatrix(zLoop,zLoop) = 2*Km(zLoop)/dz(zLoop)^2 + dKm_dz(zLoop)/dz(zLoop) ...
               + 0.5*Canopy.cd*Canopy.LADProfile(zLoop)*abs(windProfileOld(zLoop));

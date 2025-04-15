@@ -65,7 +65,6 @@ LeafMassFlux.transpiration = zeros(length(Photosynthesis),1);
 LeafEnergyFlux = table();
 LeafEnergyFlux.H = zeros(length(Photosynthesis),1); % Sensible heat flux [W m-2]
 LeafEnergyFlux.LE = zeros(length(Photosynthesis),1); % Latent heat flux [W m-2]
-LeafEnergyFlux.storage = zeros(length(Photosynthesis),1); % Latent heat flux [W m-2]
 LeafEnergyFlux.emission = zeros(length(Photosynthesis),1); % Long wave radiation flux emitted [W m-2]
 LeafEnergyFlux.radiation = zeros(length(Photosynthesis),1); % Net radiation flux [W m-2]
 LeafEnergyFlux.residual = 100*ones(length(Photosynthesis),1); % Error radiation flux [W m-2]

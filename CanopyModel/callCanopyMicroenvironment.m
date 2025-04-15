@@ -2,7 +2,6 @@ function [Canopy] = callCanopyMicroenvironment(EnergyOptions,Constants,Weather,S
     ,Canopy,Error,CanopyIteration)
 
 % Compute canopy wind and scalar profile
-% Canopy = callCanopyScalarProfile2(EnergyOptions,Weather,Canopy,Soil,Constants); % Compute temperature profile
 Canopy = callCanopyScalarProfile5('temperature',Weather,Canopy,Soil,Constants); % Compute temperature profile
 Canopy = callCanopyScalarProfile5('ea',Weather,Canopy,Soil,Constants); % Compute vapour profile
 Canopy = callCanopyScalarProfile5('ca',Weather,Canopy,Soil,Constants); % Compute CO2 profile

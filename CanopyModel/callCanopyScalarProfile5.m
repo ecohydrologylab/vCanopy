@@ -1,5 +1,5 @@
 %% Function to compute scalar profile within the canopy
-function [Canopy] = callCanopyScalarProfile4(option,Weather, ...
+function [Canopy] = callCanopyScalarProfile5(option,Weather, ...
     Canopy,Soil,Constants)
 
 dz = diff(Canopy.z);
@@ -18,8 +18,6 @@ StrFactor = 1;
 
 %% Stem-Sink
 stemHeatCapacity = Canopy.drySM*(4.18E3/3 + 0.85/(1-0.85)*4.18E3);%/(Weather.deltaT*3600);
-% Canopy.tAirProfileLag(isnan(Canopy.tAirProfileLag)) = 0;
-% stemHeatCapacity(isnan(Canopy.tAirProfileLag(1:end-1)) | Canopy.tAirProfileLag(1:end-1) == 0) = 0;
 
 %% Initialize canopy wind profile [m s-1]
 if strcmp(option,'temperature') % Temperature Profile

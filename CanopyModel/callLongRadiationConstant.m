@@ -1,6 +1,5 @@
 function [Soil,Canopy] = callLongRadiationConstant(Constants,EnergyOptions,Weather,Soil,Canopy)
 
-
 % Based on the same principal as the leaf level paper
 % Top leaf longwave: sky + leaf just below
 % Middle leaf longwave: leaf just above + leaf just below
@@ -8,7 +7,7 @@ function [Soil,Canopy] = callLongRadiationConstant(Constants,EnergyOptions,Weath
 
 emissivitySoil = EnergyOptions.epsilonSoil;
 leafAbsorptivity = EnergyOptions.epsilonLeaf; % Leaf absorptivity Changed from 0.96
-soilAbsorptivity = EnergyOptions.epsilonSoil; % Changed from 0.8
+soilAbsorptivity = EnergyOptions.epsilonSoil; 
 
 coeff = [0.9258    1.0059    1.0677];
 skyEmissivity = coeff(1) +  coeff(2)*(Canopy.eaProfile/1000./...
